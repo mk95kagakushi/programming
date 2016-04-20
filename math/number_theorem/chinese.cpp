@@ -1,4 +1,4 @@
-// g++ chinese_gmp.cpp -lgmpxx -lgmp
+// g++ chinese.cpp
 //
 // Summary
 // 中国人剰余の定理 m_iはそれぞれは互いに素
@@ -30,8 +30,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <queue>
 #include <algorithm>
-#include <gmpxx.h>
 
 using namespace std;
 
@@ -55,9 +55,9 @@ typedef priority_queue<int, vi, greater<int> > pqi;
 
 typedef long long ll;
 
-mpz_class eea(mpz_class a,mpz_class b,mpz_class& x,mpz_class& y){
-	mpz_class gcd = a;
-	if(cmp(b,0)!=0){
+ll eea(ll a,ll b,ll& x,ll& y){
+	ll gcd = a;
+	if(b!=0){
 		gcd = eea(b,a%b,y,x);
 		y -= (a/b) * x;
 	}
@@ -67,10 +67,10 @@ mpz_class eea(mpz_class a,mpz_class b,mpz_class& x,mpz_class& y){
 	return gcd;
 }
 
-mpz_class modinv(mpz_class a,mpz_class m){
-    mpz_class x,y,g;
+ll modinv(ll a,ll m){
+    ll x,y,g;
     g = eea(a,m,x,y);
-    if(cmp(g,1)==0){
+    if(g==1){
         while(x<0){
             x+=m;
         }
@@ -81,24 +81,24 @@ mpz_class modinv(mpz_class a,mpz_class m){
     }
 }
 
-mpz_class chinese(mpz_class a1,mpz_class m1,mpz_class a2,mpz_class m2){
-    mpz_class y1 = modinv(m1,m2);
-    mpz_class y2 = modinv(m2,m1);
+ll chinese(ll a1,ll m1,ll a2,ll m2){
+    ll y1 = modinv(m1,m2);
+    ll y2 = modinv(m2,m1);
     return (m2*a1*y2+m1*a2*y1)%(m1*m2);
 }
 
 int main(){
-	vector<mpz_class> a;
-	vector<mpz_class> m;
+	vector<ll> a;
+	vector<ll> m;
 	int n; cin>>n;
 	rep(i,n){
-		mpz_class at,mt;
+		ll at,mt;
 		cin>>at>>mt;
 		a.pb(at);
 		m.pb(mt);
 	}
-	mpz_class mod;
-	mpz_class ans;
+	ll mod;
+	ll ans;
 	ans = a[0];
 	mod = m[0];
 	rep(i,n-1){
