@@ -23,8 +23,9 @@
 // output
 // ans
 //
-// date:2016/03/14
-//  	2016/04/20
+// modifide date:
+// 		2016/03/14
+//		2016/04/20
 
 #include <iostream>
 #include <string>
