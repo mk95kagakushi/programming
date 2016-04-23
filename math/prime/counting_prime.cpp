@@ -30,7 +30,7 @@ vi nop; //number of prime
 vector<bool> isp; //is_prime
 map<ll, ll> Leh; //memo
 vi psi3; //memo
-int MaX; // 適当な打ち切り 立方根
+int MaX; // 適当な打ち切り 立方根を目指したい（未実装）
 
 
 int p235;
