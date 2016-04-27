@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <map>
+#include <set>
 #include <vector>
 #include <cstdio>
 #include <algorithm>
@@ -68,7 +69,8 @@ void init(int n) {
 	par[1].pb(0);
 }
 
-multimap< int, string > shiki;
+//multimap< int, string > shiki;
+set<string> shiki;
 
 void p(int n, vi s) {
 	sort(all(s));
@@ -82,7 +84,7 @@ void p(int n, vi s) {
 	}
 	ss << endl;
 	str = ss.str();
-	shiki.insert(mp(n, str));
+	shiki.insert(str);
 }
 
 void add(Node t, int k) {
@@ -90,7 +92,6 @@ void add(Node t, int k) {
 		int n = t.p + t.v[i];
 		if (n+1 > N) continue;
 		//未更新 か 同じ高さだったら
-		//if (h[n] == t.d + 1)cout << "@:" << n << " "<< t.p<<" "<< t.v[i]<<endl;
 		if (h[n] == -1 || h[n] == t.d + 1) {
 			int pp = n;
 			int dd = t.d + 1;
@@ -133,15 +134,9 @@ int main() {
 	sort(all(a));
 
 	string st = "";
+	
 	each(it,shiki){
-		if(st == it->second) continue;
-		st = it->second;
-		cout<<st;
+		cout<<*it;
 	}
-	//sort(all(shiki));
-	//rep(i, shiki.size()) {
-	//	cout << shiki[i].second;
-	//}
-
 	return 0;
 }

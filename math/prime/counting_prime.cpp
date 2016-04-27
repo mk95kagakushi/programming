@@ -31,10 +31,14 @@ vector<bool> isp; //is_prime
 map<ll, ll> Leh; //memo
 vi psi3; //memo
 int MaX; // 適当な打ち切り 立方根を目指したい（未実装）
-
+// i 番目の素数を求めるところ 特に ｂ がMaXよりも大きくなると エラー
+// ある程度確保しないとだめ．
 
 int p235;
 int phi235;
+
+//使ってない
+map< pair<long long, long long> ,long long> psi_memo;
 
 ll phi(ll n) {
 	ll ret = n;
@@ -67,34 +71,30 @@ ll psi(ll x, ll a) {
 
 ll lehmer(ll n) {
 	if (n<=MaX) return Leh[n] = nop[n];
+	cout<<n<<endl;
 	if (Leh.find(n) == Leh.end()) {
 		ll a = lehmer(floor(pow(n, 1.0 / 4.0)));
 		ll b = lehmer(floor(pow(n, 1.0 / 2.0)));
 		ll c = lehmer(floor(pow(n, 1.0 / 3.0)));
 		ll Psum = 0;
-		for (int i = a; i < b; i++) {
+		for (int i = a; (ll)i < b; i++) {
 			ll t = lehmer(n / primes[i]);
 			Psum += t;
-			if (n == 500000) cout << "t:" << t << " "<<i-1<<endl;
 		}
-		for (int i = a; i < c; i++) {
+		for (int i = a; (ll)i < c; i++) {
 			ll Bi = lehmer((int)sqrt(n / primes[i]));
-			for (int j = i; j < Bi; j++) {
+			for (ll j = i; j < Bi; j++) {
 				Psum += lehmer(floor(n / (primes[i] * primes[j]))) - j;
 			}
 		}
 		ll W = psi(n, a);
-		if (n == 500000) {
-			cout << a << " " << b << endl;
-			cout << W << " " << -1 * Psum << " " << (b + a - 2)*(b - a + 1) / 2 << endl;
-		}
 		Leh[n] = W + (b + a - 2)*(b - a + 1) / 2 - Psum;
 	}
 	return Leh[n];
 }
 
 void init(int n) {
-	MaX = 1000000;
+	MaX = 50000000;
 	isp.resize(MaX+1, true);
 	nop.resize(MaX+1, 0);
 	isp[0] = isp[1] = false;
