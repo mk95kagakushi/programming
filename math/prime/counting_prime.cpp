@@ -94,7 +94,7 @@ ll lehmer(ll n) {
 }
 
 void init(int n) {
-	MaX = 50000000;
+	MaX = 100000000;
 	isp.resize(MaX+1, true);
 	nop.resize(MaX+1, 0);
 	isp[0] = isp[1] = false;

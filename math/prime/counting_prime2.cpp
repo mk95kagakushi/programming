@@ -98,7 +98,8 @@ ll psi(ll x, ll a) {
 
 ll lehmer(ll n) {
 	if (n <= MaX) return Leh[n] = nop[n];
-	if (Leh.find(n) == Leh.end()) {
+	cout<<n<<endl;
+	if (has(Leh,n)) {
 		ll a = lehmer(floor(pow(n, 1.0 / 4.0)));
 		ll b = lehmer(floor(pow(n, 1.0 / 2.0)));
 		ll c = lehmer(floor(pow(n, 1.0 / 3.0)));
